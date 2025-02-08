@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: Hexagonal DDD architecture microservice example
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/hexddd
+    username: hexddd
+    password: hexddd
+  jpa:
+    hibernate:
+      ddl-auto: none
+  liquibase:
+    enabled: true
+    change-log: db-changelog/db-changelog-master.xml
+    database-change-log-lock-table: changelog_lock
+    database-change-log-table: changelog
