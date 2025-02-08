@@ -1,0 +1,15 @@
+services:
+  postgres:
+    container_name: hexddd-postgres
+    image: postgres:17.2
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=hexddd
+      - POSTGRES_USER=hexddd
+      - POSTGRES_DB=hexddd
+
+volumes:
+  pgdata:
