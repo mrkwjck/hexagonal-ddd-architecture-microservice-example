@@ -14,3 +14,34 @@ spring:
     change-log: db-changelog/db-changelog-master.xml
     database-change-log-lock-table: changelog_lock
     database-change-log-table: changelog
+
+  kafka:
+    bootstrap-servers: localhost:9092
+  cloud:
+    stream:
+      default-binder: kafka
+      kafka:
+        binder:
+          configuration:
+            max.poll.records: 50
+            max.poll.interval.ms: 60000
+          brokers: ${spring.kafka.bootstrap-servers}
+          replication-factor: 1
+          min-partition-count: 10
+          auto-create-topics: true # Allow to auto create topics
+          auto-add-partitions: false  # Allow to auto create partitions
+        bindings:
+          domainEventOutput-out-0:
+            producer:
+              sync: true
+              configuration:
+                key.serializer: org.apache.kafka.common.serialization.StringSerializer
+                value.serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+      bindings:
+        domainEventOutput-out-0:
+          binder: kafka
+          destination: ACCOUNT_EVENT_OUTPUT
+
+logging:
+  level:
+    root: info

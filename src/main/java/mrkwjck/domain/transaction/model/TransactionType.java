@@ -1,6 +1,6 @@
 package mrkwjck.domain.transaction.model;
 
-enum TransactionType {
+public enum TransactionType {
     DEPOSIT,
     WITHDRAWAL
 }

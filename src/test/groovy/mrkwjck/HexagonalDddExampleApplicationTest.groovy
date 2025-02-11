@@ -1,15 +1,11 @@
 package mrkwjck
 
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.context.SpringBootTest
-import spock.lang.Specification
 
-@SpringBootTest
-class HexagonalDddExampleApplicationTest extends Specification {
+class HexagonalDddExampleApplicationTest extends ITSpecification {
 
     @Test
     void "Should load application context"() {
     }
-
 
 }
