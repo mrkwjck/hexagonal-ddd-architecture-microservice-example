@@ -1,15 +1,14 @@
 package mrkwjck.domain.transaction.model;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.iban4j.Iban;
 import org.jmolecules.ddd.annotation.AggregateRoot;
 import org.jmolecules.ddd.annotation.Identity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Getter
 @Builder

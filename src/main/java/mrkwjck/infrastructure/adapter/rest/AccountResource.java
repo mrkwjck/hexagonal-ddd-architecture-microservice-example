@@ -1,5 +1,7 @@
 package mrkwjck.infrastructure.adapter.rest;
 
+import mrkwjck.application.port.in.AccountTransactionsQuery;
+import mrkwjck.application.port.in.GetAccountTransactionsUseCase;
 import org.iban4j.Iban;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +32,7 @@ class AccountResource {
     private final GetAccounDetailsUseCase getAccounDetailsUseCase;
     private final DepositFundsUseCase depositFundsUseCase;
     private final WithdrawFundsUseCase withdrawFundsUseCase;
+    private final GetAccountTransactionsUseCase getAccountTransactionsUseCase;
 
     @PostMapping
     public ResponseEntity<AccountDetailsResponse> createAccount(@RequestBody CreateAccountRequest request) {
@@ -53,6 +56,12 @@ class AccountResource {
     public ResponseEntity<Void> withdrawFunds(@PathVariable String accountNumber, @RequestBody WithdrawFundsRequest request) {
         withdrawFundsUseCase.execute(new WithdrawFundsCommand(Iban.valueOf(accountNumber), request.amount()));
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{accountNumber}/transactions")
+    public ResponseEntity<AccountTransactionsResponse> getAccountTransactions(@PathVariable String accountNumber) {
+        var accountTransactions =  getAccountTransactionsUseCase.execute(new AccountTransactionsQuery(Iban.valueOf(accountNumber)));
+        return ResponseEntity.ok(new AccountTransactionsResponse(accountTransactions));
     }
 
 }
