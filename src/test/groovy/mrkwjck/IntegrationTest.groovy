@@ -6,5 +6,5 @@ import spock.lang.Specification
 
 @SpringBootTest
 @ActiveProfiles("test")
-class ITSpecification extends Specification{
+class IntegrationTest extends Specification{
 }

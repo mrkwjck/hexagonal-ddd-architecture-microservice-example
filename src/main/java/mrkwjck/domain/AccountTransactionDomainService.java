@@ -1,18 +1,17 @@
 package mrkwjck.domain;
 
+import java.math.BigDecimal;
+
+import org.iban4j.Iban;
+
 import lombok.RequiredArgsConstructor;
 import mrkwjck.domain.account.AccountRepository;
 import mrkwjck.domain.account.event.FundsDeposited;
 import mrkwjck.domain.account.event.FundsWithdrawn;
 import mrkwjck.domain.transaction.TransactionRepository;
 import mrkwjck.domain.transaction.model.Transaction;
-import org.iban4j.Iban;
-import org.jmolecules.ddd.annotation.Service;
-
-import java.math.BigDecimal;
 
 
-@Service
 @RequiredArgsConstructor
 public class AccountTransactionDomainService {
 

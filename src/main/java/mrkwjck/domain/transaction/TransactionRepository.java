@@ -1,12 +1,12 @@
 package mrkwjck.domain.transaction;
 
-import mrkwjck.domain.transaction.model.Transaction;
-import org.iban4j.Iban;
-import org.jmolecules.ddd.annotation.Repository;
-
 import java.util.List;
 
-@Repository
+import org.iban4j.Iban;
+
+import mrkwjck.domain.transaction.model.Transaction;
+
+
 public interface TransactionRepository {
 
     void save(Transaction transaction);

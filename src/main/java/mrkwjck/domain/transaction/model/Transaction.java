@@ -1,22 +1,19 @@
 package mrkwjck.domain.transaction.model;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import org.iban4j.Iban;
-import org.jmolecules.ddd.annotation.AggregateRoot;
-import org.jmolecules.ddd.annotation.Identity;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import org.iban4j.Iban;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
 @Getter
 @Builder
-@AggregateRoot
 @RequiredArgsConstructor
 public class Transaction {
 
-    @Identity
     private final TransactionId id;
     private final Iban accountNumber;
     private final TransactionType type;
