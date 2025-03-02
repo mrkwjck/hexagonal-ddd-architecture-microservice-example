@@ -2,7 +2,7 @@ package mrkwjck
 
 import org.junit.jupiter.api.Test
 
-class HexagonalDddExampleApplicationTest extends ITSpecification {
+class ApplicationContextIntegrationTest extends IntegrationTest {
 
     @Test
     void "Should load application context"() {

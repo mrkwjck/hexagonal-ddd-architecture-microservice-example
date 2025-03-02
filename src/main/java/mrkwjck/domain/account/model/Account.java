@@ -1,25 +1,21 @@
 package mrkwjck.domain.account.model;
 
+import java.math.BigDecimal;
+import java.util.Currency;
+
+import org.iban4j.CountryCode;
+import org.iban4j.Iban;
+
 import lombok.Builder;
 import lombok.Getter;
 import mrkwjck.domain.account.exception.InsufficientAccountBalanceException;
 import mrkwjck.domain.account.exception.InvalidTransactionAmountException;
-import org.iban4j.CountryCode;
-import org.iban4j.Iban;
-import org.jmolecules.ddd.annotation.AggregateRoot;
-import org.jmolecules.ddd.annotation.Entity;
-import org.jmolecules.ddd.annotation.Identity;
 
-import java.math.BigDecimal;
-import java.util.Currency;
 
-@Entity
 @Getter
 @Builder
-@AggregateRoot
 public class Account {
 
-    @Identity
     private final Iban accountNumber;
     private final Currency currency;
     private BigDecimal balance;

@@ -4,10 +4,8 @@ import lombok.RequiredArgsConstructor;
 import mrkwjck.domain.account.AccountRepository;
 import mrkwjck.domain.account.event.AccountCreated;
 import mrkwjck.domain.account.model.Account;
-import org.jmolecules.ddd.annotation.Service;
 
 
-@Service
 @RequiredArgsConstructor
 public class AccountDomainService {
 
