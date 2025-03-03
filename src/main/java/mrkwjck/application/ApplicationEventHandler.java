@@ -19,5 +19,4 @@ class ApplicationEventHandler {
         log.info("Received domain event: {}", domainEvent);
         publishDomainEventPort.publishEvent(domainEvent);
     }
-
 }

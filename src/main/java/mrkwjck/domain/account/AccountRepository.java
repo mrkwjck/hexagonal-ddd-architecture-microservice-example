@@ -1,14 +1,11 @@
 package mrkwjck.domain.account;
 
-import org.iban4j.Iban;
-
 import mrkwjck.domain.account.model.Account;
-
+import org.iban4j.Iban;
 
 public interface AccountRepository {
 
     void save(Account account);
 
-    Account findByAccountNumber(Iban id);
-
+    Account findByAccountNumber(Iban accountNumber);
 }

@@ -9,11 +9,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import lombok.Data;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-
+import lombok.Data;
 
 @Data
 @Entity
@@ -27,7 +25,7 @@ class TransactionJpaEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="account_id")
+    @JoinColumn(name = "account_id")
     private AccountJpaEntity account;
 
     @Column(name = "type")
@@ -38,5 +36,4 @@ class TransactionJpaEntity {
 
     @Column(name = "creation_time")
     private LocalDateTime creationTime;
-
 }

@@ -13,14 +13,16 @@ import org.springframework.context.annotation.Configuration;
 class DomainConfiguration {
 
     @Bean
-    AccountTransactionDomainService accountTransactionDomainService(AccountRepository accountRepository,
-                                                                    TransactionRepository transactionRepository,
-                                                                    DomainEventPublisher domainEventPublisher) {
+    AccountTransactionDomainService accountTransactionDomainService(
+            AccountRepository accountRepository,
+            TransactionRepository transactionRepository,
+            DomainEventPublisher domainEventPublisher) {
         return new AccountTransactionDomainService(accountRepository, transactionRepository, domainEventPublisher);
     }
 
     @Bean
-    AccountDomainService accountDomainService(AccountRepository accountRepository, DomainEventPublisher domainEventPublisher) {
+    AccountDomainService accountDomainService(
+            AccountRepository accountRepository, DomainEventPublisher domainEventPublisher) {
         return new AccountDomainService(accountRepository, domainEventPublisher);
     }
 
@@ -28,5 +30,4 @@ class DomainConfiguration {
     DomainEventPublisher domainEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
         return applicationEventPublisher::publishEvent;
     }
-
 }

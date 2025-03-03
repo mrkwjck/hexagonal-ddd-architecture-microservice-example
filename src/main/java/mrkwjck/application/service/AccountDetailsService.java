@@ -7,7 +7,6 @@ import mrkwjck.application.port.in.GetAccounDetailsUseCase;
 import mrkwjck.domain.account.AccountRepository;
 import org.springframework.stereotype.Service;
 
-
 @Service
 @RequiredArgsConstructor
 class AccountDetailsService implements GetAccounDetailsUseCase {
@@ -18,5 +17,4 @@ class AccountDetailsService implements GetAccounDetailsUseCase {
     public AccountDetails execute(AccountDetailsQuery query) {
         return new AccountDetails(accountRepository.findByAccountNumber(query.accountNumber()));
     }
-
 }

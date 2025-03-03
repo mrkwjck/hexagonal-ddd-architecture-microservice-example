@@ -2,12 +2,10 @@ package mrkwjck.domain.transaction.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-
-import org.iban4j.Iban;
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.iban4j.Iban;
 
 @Getter
 @Builder
@@ -21,11 +19,12 @@ public class Transaction {
     private final LocalDateTime creationTime;
 
     public static Transaction ofDeposit(Iban accountNumber, BigDecimal amount) {
-        return new Transaction(new TransactionId(), accountNumber, TransactionType.DEPOSIT, amount, LocalDateTime.now());
+        return new Transaction(
+                new TransactionId(), accountNumber, TransactionType.DEPOSIT, amount, LocalDateTime.now());
     }
 
     public static Transaction ofWithdrawal(Iban accountNumber, BigDecimal amount) {
-        return new Transaction(new TransactionId(), accountNumber, TransactionType.WITHDRAWAL, amount, LocalDateTime.now());
+        return new Transaction(
+                new TransactionId(), accountNumber, TransactionType.WITHDRAWAL, amount, LocalDateTime.now());
     }
-
 }

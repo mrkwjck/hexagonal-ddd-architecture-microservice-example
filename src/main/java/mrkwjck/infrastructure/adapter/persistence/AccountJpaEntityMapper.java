@@ -1,13 +1,11 @@
 package mrkwjck.infrastructure.adapter.persistence;
 
+import mrkwjck.domain.account.model.Account;
 import org.iban4j.Iban;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
-
-import mrkwjck.domain.account.model.Account;
-
 
 @Mapper
 interface AccountJpaEntityMapper {
@@ -29,5 +27,4 @@ interface AccountJpaEntityMapper {
     default Iban toAccountNumberIban(String accountNumber) {
         return Iban.valueOf(accountNumber);
     }
-
 }

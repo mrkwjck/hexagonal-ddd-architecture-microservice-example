@@ -15,5 +15,4 @@ public class AccountCreated extends DomainEvent {
         super("ACCOUNT_CREATED");
         this.accountNumber = accountNumber.toString();
     }
-
 }

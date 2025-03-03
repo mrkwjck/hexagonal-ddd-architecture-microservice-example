@@ -28,6 +28,14 @@
 		<postgresql-driver.version>42.7.5</postgresql-driver.version>
 		<archunit.version>1.1.0</archunit.version>
 		<testcontainers-postgresql.version>1.19.7</testcontainers-postgresql.version>
+		<spotless.version>2.44.3</spotless.version>
+		<jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
+		<gmavenplus-plugin.version>4.1.1</gmavenplus-plugin.version>
+		<maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
+		<maven-failsafe-plugin.version>3.5.2</maven-failsafe-plugin.version>
+
+		<skip-unit-tests>false</skip-unit-tests>
+		<skip-integration-tests>false</skip-integration-tests>
 	</properties>
 
 	<dependencyManagement>
@@ -142,18 +150,6 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
-				<groupId>org.codehaus.gmavenplus</groupId>
-				<artifactId>gmavenplus-plugin</artifactId>
-				<version>${gmavenplus.version}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>compileTests</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
@@ -177,6 +173,145 @@
 						</path>
 					</annotationProcessorPaths>
 				</configuration>
+			</plugin>
+			<!-- Code Coverage -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>pre-test</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>post-test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>pre-integration-test</id>
+						<goals>
+							<goal>prepare-agent-integration</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>post-integration-test</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>report-integration</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Code style verification -->
+			<plugin>
+				<groupId>com.diffplug.spotless</groupId>
+				<artifactId>spotless-maven-plugin</artifactId>
+				<version>${spotless.version}</version>
+				<configuration>
+					<java>
+						<importOrder />
+						<removeUnusedImports/>
+						<indent>
+							<spaces>true</spaces>
+							<spacesPerTab>4</spacesPerTab>
+						</indent>
+						<palantirJavaFormat />
+					</java>
+					<lineEndings>UNIX</lineEndings>
+				</configuration>
+				<executions>
+					<execution>
+						<!-- Runs in compile phase to fail fast in case of formatting issues.-->
+						<id>spotless-check</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Test -->
+			<plugin>
+				<groupId>org.codehaus.gmavenplus</groupId>
+				<artifactId>gmavenplus-plugin</artifactId>
+				<version>${gmavenplus-plugin.version}</version>
+				<configuration>
+					<parameters>true</parameters>
+					<testSources>
+						<testSource>
+							<directory>${project.basedir}/src/test/groovy</directory>
+							<includes>
+								<include>**/*.groovy</include>
+							</includes>
+						</testSource>
+						<testSource>
+							<directory>${project.basedir}/src/integration-test/groovy</directory>
+							<includes>
+								<include>**/*.groovy</include>
+							</includes>
+						</testSource>
+					</testSources>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>addTestSources</goal>
+							<goal>compileTests</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin.version}</version>
+				<configuration>
+					<testClassesDirectory>${basedir}/target/test-classes</testClassesDirectory>
+					<testSourceDirectory>${basedir}/src/test/groovy</testSourceDirectory>
+					<includes>
+						<include>**/*Test.class</include>
+					</includes>
+					<excludes>
+						<exclude>**/*mrkwjck.IntegrationTest.class</exclude>
+					</excludes>
+					<testFailureIgnore>false</testFailureIgnore>
+					<skipTests>${skip-unit-tests}</skipTests>
+					<trimStackTrace>false</trimStackTrace>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>${maven-failsafe-plugin.version}</version>
+				<configuration>
+					<systemPropertyVariables>
+						<spring.cloud.kubernetes.enabled>false</spring.cloud.kubernetes.enabled>
+					</systemPropertyVariables>
+				</configuration>
+				<executions>
+					<execution>
+						<id>integration-test</id>
+						<phase>integration-test</phase>
+						<configuration>
+							<classesDirectory>${project.build.outputDirectory}</classesDirectory>
+							<testClassesDirectory>${basedir}/target/integration-test-classes</testClassesDirectory>
+							<testSourceDirectory>${basedir}/src/integration-test/groovy</testSourceDirectory>
+							<includes>
+								<include>**/*mrkwjck.IntegrationTest.class</include>
+							</includes>
+							<excludes>
+								<exclude>**/*Test.class</exclude>
+							</excludes>
+							<skipTests>${skip-integration-tests}</skipTests>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

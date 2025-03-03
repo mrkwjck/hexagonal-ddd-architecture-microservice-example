@@ -1,5 +1,6 @@
 package mrkwjck.infrastructure.adapter.persistence;
 
+import mrkwjck.domain.transaction.model.Transaction;
 import mrkwjck.domain.transaction.model.TransactionId;
 import org.iban4j.Iban;
 import org.mapstruct.Context;
@@ -7,9 +8,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
-
-import mrkwjck.domain.transaction.model.Transaction;
-
 
 @Mapper
 interface TransactionJpaEntityMapper {
@@ -38,5 +36,4 @@ interface TransactionJpaEntityMapper {
     default Iban toIbanAccountNumber(AccountJpaEntity accountJpaEntity) {
         return Iban.valueOf(accountJpaEntity.getAccountNumber());
     }
-
 }
