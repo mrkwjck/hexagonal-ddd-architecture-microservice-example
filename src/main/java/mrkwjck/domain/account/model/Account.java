@@ -2,15 +2,12 @@ package mrkwjck.domain.account.model;
 
 import java.math.BigDecimal;
 import java.util.Currency;
-
-import org.iban4j.CountryCode;
-import org.iban4j.Iban;
-
 import lombok.Builder;
 import lombok.Getter;
 import mrkwjck.domain.account.exception.InsufficientAccountBalanceException;
 import mrkwjck.domain.account.exception.InvalidTransactionAmountException;
-
+import org.iban4j.CountryCode;
+import org.iban4j.Iban;
 
 @Getter
 @Builder
@@ -37,11 +34,10 @@ public class Account {
             throw new InvalidTransactionAmountException("Deposit amount must be greater than zero");
         }
         balance = balance.add(amount);
-        //TODO publish event DepositCompleted (create transaction) / DepositAttemptFailed
     }
 
     public void withdraw(BigDecimal amount) {
-        if (amount.compareTo(BigDecimal.ZERO) < 0) {
+        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
             throw new InvalidTransactionAmountException("Withdrawal amount must be greater than zero");
         }
         var resultingBalance = balance.subtract(amount);
@@ -49,7 +45,5 @@ public class Account {
             throw new InsufficientAccountBalanceException("Insufficient funds in the account");
         }
         balance = balance.subtract(amount);
-        //TODO publish event WithdrawalCompleted (create transaction) / WithdrawalAttemptFailed
     }
-
 }

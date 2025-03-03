@@ -20,7 +20,7 @@ class KafkaDomainEventPublisher implements PublishDomainEventPort {
     @Override
     public void publishEvent(DomainEvent event) {
         log.info("Publishing domain event {} to Kafka", event);
-        streamBridge.send(DOMAIN_EVENT_OUTPUT_CHANNEL, MessageBuilder.withPayload(event).build());
+        streamBridge.send(
+                DOMAIN_EVENT_OUTPUT_CHANNEL, MessageBuilder.withPayload(event).build());
     }
-
 }

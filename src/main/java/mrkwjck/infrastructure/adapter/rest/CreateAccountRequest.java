@@ -1,4 +1,3 @@
 package mrkwjck.infrastructure.adapter.rest;
 
-record CreateAccountRequest(String ownerName) {
-}
+record CreateAccountRequest(String ownerName) {}

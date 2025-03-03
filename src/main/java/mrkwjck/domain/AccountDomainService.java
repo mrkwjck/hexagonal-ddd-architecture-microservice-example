@@ -5,7 +5,6 @@ import mrkwjck.domain.account.AccountRepository;
 import mrkwjck.domain.account.event.AccountCreated;
 import mrkwjck.domain.account.model.Account;
 
-
 @RequiredArgsConstructor
 public class AccountDomainService {
 
@@ -18,5 +17,4 @@ public class AccountDomainService {
         domainEventPublisher.publishEvent(new AccountCreated(account.getAccountNumber()));
         return account;
     }
-
 }

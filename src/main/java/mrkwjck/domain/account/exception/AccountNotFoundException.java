@@ -11,5 +11,4 @@ public class AccountNotFoundException extends RuntimeException {
     public AccountNotFoundException(Iban accountNumber) {
         this(accountNumber.toString());
     }
-
 }

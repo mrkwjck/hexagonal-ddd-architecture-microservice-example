@@ -1,7 +1,16 @@
 package mrkwjck.infrastructure.adapter.rest;
 
+import lombok.RequiredArgsConstructor;
+import mrkwjck.application.port.in.AccountDetailsQuery;
 import mrkwjck.application.port.in.AccountTransactionsQuery;
+import mrkwjck.application.port.in.CreateAccountCommand;
+import mrkwjck.application.port.in.CreateAccountUseCase;
+import mrkwjck.application.port.in.DepositFundsCommand;
+import mrkwjck.application.port.in.DepositFundsUseCase;
+import mrkwjck.application.port.in.GetAccounDetailsUseCase;
 import mrkwjck.application.port.in.GetAccountTransactionsUseCase;
+import mrkwjck.application.port.in.WithdrawFundsCommand;
+import mrkwjck.application.port.in.WithdrawFundsUseCase;
 import org.iban4j.Iban;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,17 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import lombok.RequiredArgsConstructor;
-import mrkwjck.application.port.in.AccountDetailsQuery;
-import mrkwjck.application.port.in.CreateAccountCommand;
-import mrkwjck.application.port.in.CreateAccountUseCase;
-import mrkwjck.application.port.in.DepositFundsCommand;
-import mrkwjck.application.port.in.DepositFundsUseCase;
-import mrkwjck.application.port.in.GetAccounDetailsUseCase;
-import mrkwjck.application.port.in.WithdrawFundsCommand;
-import mrkwjck.application.port.in.WithdrawFundsUseCase;
-
 
 @RequiredArgsConstructor
 @RestController
@@ -47,21 +45,23 @@ class AccountResource {
     }
 
     @PostMapping("/{accountNumber}/deposit")
-    public ResponseEntity<Void> depositFunds(@PathVariable String accountNumber, @RequestBody DepositFundsRequest request) {
+    public ResponseEntity<Void> depositFunds(
+            @PathVariable String accountNumber, @RequestBody DepositFundsRequest request) {
         depositFundsUseCase.execute(new DepositFundsCommand(Iban.valueOf(accountNumber), request.amount()));
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/{accountNumber}/withdrawal")
-    public ResponseEntity<Void> withdrawFunds(@PathVariable String accountNumber, @RequestBody WithdrawFundsRequest request) {
+    public ResponseEntity<Void> withdrawFunds(
+            @PathVariable String accountNumber, @RequestBody WithdrawFundsRequest request) {
         withdrawFundsUseCase.execute(new WithdrawFundsCommand(Iban.valueOf(accountNumber), request.amount()));
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{accountNumber}/transactions")
     public ResponseEntity<AccountTransactionsResponse> getAccountTransactions(@PathVariable String accountNumber) {
-        var accountTransactions =  getAccountTransactionsUseCase.execute(new AccountTransactionsQuery(Iban.valueOf(accountNumber)));
+        var accountTransactions =
+                getAccountTransactionsUseCase.execute(new AccountTransactionsQuery(Iban.valueOf(accountNumber)));
         return ResponseEntity.ok(new AccountTransactionsResponse(accountTransactions));
     }
-
 }

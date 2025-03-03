@@ -1,16 +1,13 @@
 package mrkwjck.domain;
 
 import java.math.BigDecimal;
-
-import org.iban4j.Iban;
-
 import lombok.RequiredArgsConstructor;
 import mrkwjck.domain.account.AccountRepository;
 import mrkwjck.domain.account.event.FundsDeposited;
 import mrkwjck.domain.account.event.FundsWithdrawn;
 import mrkwjck.domain.transaction.TransactionRepository;
 import mrkwjck.domain.transaction.model.Transaction;
-
+import org.iban4j.Iban;
 
 @RequiredArgsConstructor
 public class AccountTransactionDomainService {
@@ -39,5 +36,4 @@ public class AccountTransactionDomainService {
         withdrawFunds(sourceAccountNumber, amount);
         depositFunds(targetAccountNumber, amount);
     }
-
 }

@@ -1,8 +1,7 @@
 package mrkwjck.domain;
 
-import lombok.Getter;
-
 import java.time.LocalDateTime;
+import lombok.Getter;
 
 @Getter
 public abstract class DomainEvent {
@@ -14,5 +13,4 @@ public abstract class DomainEvent {
         timestamp = LocalDateTime.now();
         this.name = name;
     }
-
 }
