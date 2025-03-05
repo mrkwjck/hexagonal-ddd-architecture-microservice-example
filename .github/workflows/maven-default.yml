@@ -2,13 +2,13 @@ name: Maven default workflow
 
 on:
   push:
-    branches: [ "master", "feature/**" ]
+    branches: [ "feature/**" ]
   pull_request:
     branches: [ "master" ]
 
 jobs:
-  build:
-
+  verify:
+    name: Verify
     runs-on: ubuntu-latest
 
     steps:
@@ -19,5 +19,5 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
         cache: maven
-    - name: Verify
+    - name: Run tests
       run: mvn verify --file pom.xml

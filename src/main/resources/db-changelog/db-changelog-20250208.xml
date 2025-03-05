@@ -1,0 +1,52 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="20250208" author="mrkwjck">
+        <createTable tableName="accounts">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="account_number" type="char(28)">
+                <constraints nullable="false" />
+            </column>
+            <column name="currency" type="char(3)">
+                <constraints nullable="false" />
+            </column>
+            <column name="balance" type="numeric(14,2)">
+                <constraints nullable="false" />
+            </column>
+            <column name="owner_name" type="varchar">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <createTable tableName="transactions">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="account_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_account_transaction" references="accounts(id)" />
+            </column>
+            <column name="type" type="varchar">
+                <constraints nullable="false" />
+            </column>
+            <column name="amount" type="numeric(14,2)">
+                <constraints nullable="false" />
+            </column>
+            <column name="creation_time" type="timestamp">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <createSequence schemaName="public"
+                        incrementBy="10"
+                        minValue="1000"
+                        sequenceName="account_id_sequence" />
+
+        <createSequence schemaName="public"
+                        incrementBy="10"
+                        minValue="1000"
+                        sequenceName="transaction_id_sequence" />
+    </changeSet>
+</databaseChangeLog>
