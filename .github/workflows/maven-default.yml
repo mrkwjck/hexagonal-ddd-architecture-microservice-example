@@ -2,7 +2,7 @@ name: Maven default workflow
 
 on:
   push:
-    branches: [ "master", "feature/**" ]
+    branches: [ "feature/**" ]
   pull_request:
     branches: [ "master" ]
 
