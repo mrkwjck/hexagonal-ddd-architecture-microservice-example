@@ -1,6 +1,6 @@
 package mrkwjck.application.port.in;
 
-interface ResultUseCase<IN, OUT> {
+interface ResultUseCase<I, O> {
 
-    OUT execute(IN input);
+    O execute(I input);
 }
