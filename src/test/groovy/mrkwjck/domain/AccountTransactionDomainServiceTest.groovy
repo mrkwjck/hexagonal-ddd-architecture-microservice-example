@@ -7,12 +7,11 @@ import mrkwjck.domain.account.model.Account
 import mrkwjck.domain.transaction.TransactionRepository
 import mrkwjck.domain.transaction.model.Transaction
 import mrkwjck.domain.transaction.model.TransactionType
-import org.iban4j.Iban
 import spock.lang.Specification
 
 class AccountTransactionDomainServiceTest extends Specification {
 
-    void "should handle deposit transaction"() {
+    void "should save account and transaction and publish event for deposit"() {
         given:
         var accountRepository = Mock(AccountRepository)
         var transactionRepository = Mock(TransactionRepository)
@@ -44,7 +43,7 @@ class AccountTransactionDomainServiceTest extends Specification {
         }
     }
 
-    void "should handle withdrawal transaction"() {
+    void "should save account and transaction and publish event for withdrawal"() {
         given:
         var accountRepository = Mock(AccountRepository)
         var transactionRepository = Mock(TransactionRepository)
@@ -77,7 +76,7 @@ class AccountTransactionDomainServiceTest extends Specification {
         }
     }
 
-    void "should handle transferring funds between accounts"() {
+    void "should save accounts and transactions and publish events for funds transfer"() {
         given:
         var accountRepository = Mock(AccountRepository)
         var transactionRepository = Mock(TransactionRepository)
