@@ -3,3 +3,6 @@ spring:
     jdbc-url: jdbc:tc:postgresql:17.2:///hexddd
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
     url: ${spring.datasource.jdbc-url}
+
+  kafka:
+    bootstrap-servers: localhost:9092
