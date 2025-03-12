@@ -1,3 +1,3 @@
 package mrkwjck.application.port.in;
 
-public interface DepositFundsUseCase extends VoidUseCase<DepositFundsCommand> {}
+public interface DepositFundsUseCase extends CommandUseCase<DepositFundsCommand> {}

@@ -1,6 +1,6 @@
 package mrkwjck.application.port.in;
 
-interface VoidUseCase<I> {
+interface CommandUseCase<I> {
 
     void execute(I input);
 }
