@@ -1,5 +1,6 @@
 package mrkwjck.infrastructure.adapter.rest;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mrkwjck.application.port.in.AccountDetailsQuery;
 import mrkwjck.application.port.in.AccountTransactionsQuery;
@@ -9,6 +10,7 @@ import mrkwjck.application.port.in.DepositFundsCommand;
 import mrkwjck.application.port.in.DepositFundsUseCase;
 import mrkwjck.application.port.in.GetAccounDetailsUseCase;
 import mrkwjck.application.port.in.GetAccountTransactionsUseCase;
+import mrkwjck.application.port.in.GetAccountsUseCase;
 import mrkwjck.application.port.in.WithdrawFundsCommand;
 import mrkwjck.application.port.in.WithdrawFundsUseCase;
 import org.iban4j.Iban;
@@ -31,6 +33,15 @@ class AccountResource {
     private final DepositFundsUseCase depositFundsUseCase;
     private final WithdrawFundsUseCase withdrawFundsUseCase;
     private final GetAccountTransactionsUseCase getAccountTransactionsUseCase;
+    private final GetAccountsUseCase getAccountsUseCase;
+
+    @GetMapping
+    public ResponseEntity<List<AccountDetailsResponse>> getAccounts() {
+        var accounts = getAccountsUseCase.execute().stream()
+                .map(AccountDetailsResponse::new)
+                .toList();
+        return ResponseEntity.ok(accounts);
+    }
 
     @PostMapping
     public ResponseEntity<AccountDetailsResponse> createAccount(@RequestBody CreateAccountRequest request) {

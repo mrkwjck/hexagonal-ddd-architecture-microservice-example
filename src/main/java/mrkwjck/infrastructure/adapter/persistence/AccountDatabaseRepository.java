@@ -1,5 +1,6 @@
 package mrkwjck.infrastructure.adapter.persistence;
 
+import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import mrkwjck.domain.account.AccountRepository;
@@ -34,5 +35,12 @@ class AccountDatabaseRepository implements AccountRepository {
                 .findByAccountNumber(accountNumber.toString())
                 .map(AccountJpaEntityMapper.INSTANCE::toAccountDomain)
                 .orElseThrow(() -> new AccountNotFoundException(accountNumber));
+    }
+
+    @Override
+    public List<Account> findAll() {
+        return accountJpaRepository.findAll().stream()
+                .map(AccountJpaEntityMapper.INSTANCE::toAccountDomain)
+                .toList();
     }
 }
