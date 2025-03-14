@@ -7,6 +7,7 @@ import mrkwjck.domain.account.AccountRepository;
 import mrkwjck.domain.account.exception.AccountNotFoundException;
 import mrkwjck.domain.account.model.Account;
 import org.iban4j.Iban;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -39,7 +40,7 @@ class AccountDatabaseRepository implements AccountRepository {
 
     @Override
     public List<Account> findAll() {
-        return accountJpaRepository.findAll().stream()
+        return accountJpaRepository.findAll(Sort.by(Sort.Order.by("accountNumber"))).stream()
                 .map(AccountJpaEntityMapper.INSTANCE::toAccountDomain)
                 .toList();
     }
